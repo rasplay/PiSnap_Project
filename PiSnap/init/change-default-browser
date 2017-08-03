@@ -1,0 +1,103 @@
+#!/bin/sh
+#
+# Copyright (C) 2015 by Goldbassist, member of OpenMake.cc
+# http://www.rasplay.org, https://github.com/rasplay
+#
+# Part of raspi-config http://github.com/asb/raspi-config
+#
+# Permission is hereby granted, free of charge, to any person
+# obtaining a copy of this software and associated documentation
+# files (the "Software"), to deal in the Software without
+# restriction, including without limitation the rights to use,
+# copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following
+# conditions:
+# 
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+# 
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+# OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+# OTHER DEALINGS IN THE SOFTWARE.
+#
+
+myIP=$(ip a s|sed -ne '/127.0.0.1/!{s/^[ \t]*inet[ \t]*\([0-9.]\+\)\/.*$/\1/p}')
+DESKTOP_FILE_NAME='/home/pi/Desktop/pisnap.desktop'
+
+
+change_default_browser(){
+  sed -i "s/epiphany-browser/chromium/" /home/pi/.config/lxpanel/LXDE-pi/panels/panel
+  ln -s /usr/share/applications/chromium.desktop /home/pi/Desktop/chromium.desktop
+  sed -i '/\[Default Applications\]/a\
+  text\/html=chromium.desktop\
+  x-scheme-handler\/http=chromium.desktop\
+  x-scheme-handler\/https=chromium.desktop\
+  x-scheme-handler\/http=chromium.desktop\;
+  ' /home/pi/.local/share/applications/mimeapps.list
+
+  sudo mv /usr/share/icons/gnome/22x22/mimetypes/text-html.png /usr/share/icons/gnome/22x22/mimetypes/text-html-default.png
+  sudo mv /usr/share/icons/gnome/24x24/mimetypes/text-html.png /usr/share/icons/gnome/24x24/mimetypes/text-html-default.png
+  sudo mv /usr/share/icons/gnome/48x48/mimetypes/text-html.png /usr/share/icons/gnome/48x48/mimetypes/text-html-default.png
+  sudo mv /usr/share/icons/gnome/256x256/mimetypes/text-html.png /usr/share/icons/gnome/256x256/mimetypes/text-html-default.png
+  sudo ln -s /usr/share/icons/hicolor/22x22/apps/chromium.png /usr/share/icons/gnome/22x22/mimetypes/text-html.png
+  sudo ln -s /usr/share/icons/hicolor/24x24/apps/chromium.png /usr/share/icons/gnome/24x24/mimetypes/text-html.png
+  sudo ln -s /usr/share/icons/hicolor/48x48/apps/chromium.png /usr/share/icons/gnome/48x48/mimetypes/text-html.png
+  sudo ln -s /usr/share/icons/hicolor/256x256/apps/chromium.png /usr/share/icons/gnome/256x256/mimetypes/text-html.png
+
+  sudo mv /usr/share/icons/gnome/22x22/mimetypes/www.png /usr/share/icons/gnome/22x22/mimetypes/www-default.png
+  sudo mv /usr/share/icons/gnome/24x24/mimetypes/www.png /usr/share/icons/gnome/24x24/mimetypes/www-default.png
+  sudo mv /usr/share/icons/gnome/48x48/mimetypes/www.png /usr/share/icons/gnome/48x48/mimetypes/twww-default.png
+  sudo mv /usr/share/icons/gnome/256x256/mimetypes/www.png /usr/share/icons/gnome/256x256/mimetypes/www-default.png
+  sudo ln -s /usr/share/icons/hicolor/22x22/apps/chromium.png /usr/share/icons/gnome/22x22/mimetypes/www.png
+  sudo ln -s /usr/share/icons/hicolor/24x24/apps/chromium.png /usr/share/icons/gnome/24x24/mimetypes/www.png
+  sudo ln -s /usr/share/icons/hicolor/48x48/apps/chromium.png /usr/share/icons/gnome/48x48/mimetypes/www.png
+  sudo ln -s /usr/share/icons/hicolor/256x256/apps/chromium.png /usr/share/icons/gnome/256x256/mimetypes/www.png
+}
+
+create_pisnap_icon() {
+echo "#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Name=PiSnap
+GenericName[en_GB]=Web Browser
+Comment[en_GB]=PiSnap
+Exec=/usr/bin/chromium --app=http://$myIP/
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Icon=/usr/share/nginx/www/snap_logo_sm.png
+Categories=Network;WebBrowser;
+StartupNotify=true
+StartupWMClass=$myIP
+" > $DESKTOP_FILE_NAME
+}
+
+create_changeip_icon() {
+echo "#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Name=IP바꾸기
+GenericName[en_GB]=IP바꾸기
+Comment[en_GB]=IP 바꾸기
+Exec=/bin/sh /home/pi/multisnap/PiSnap/setup.sh changeIP
+Terminal=true
+X-MultipleArgs=false
+Type=Application
+Icon=/usr/share/nginx/www/snap_logo_sm.png
+Categories=Network;WebBrowser;
+StartupNotify=true
+StartupWMClass=$myIP
+" > '/home/pi/Desktop/changeip.desktop'
+}
+
+change_default_browser
+create_pisnap_icon
+create_changeip_icon
+chmod 755 $DESKTOP_FILE_NAME
+chmod 755 '/home/pi/Desktop/changeip.desktop'

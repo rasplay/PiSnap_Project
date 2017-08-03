@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html>
+        <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+                <title>파이스넵! 라즈베리파이 블럭놀이</title>
+                <link rel="shortcut icon" href="favicon.ico">
+                <script type="text/javascript" src="javascripts/FileSaver.js"></script>
+                <script type="text/javascript" src="morphic.js"></script>
+                <script type="text/javascript" src="widgets.js"></script>
+                <script type="text/javascript" src="blocks.js"></script>
+                <script type="text/javascript" src="threads.js"></script>
+                <script type="text/javascript" src="objects.js"></script>
+                <script type="text/javascript" src="gui.js"></script>
+                <script type="text/javascript" src="paint.js"></script>
+                <script type="text/javascript" src="lists.js"></script>
+                <script type="text/javascript" src="byob.js"></script>
+                <script type="text/javascript" src="xml.js"></script>
+                <script type="text/javascript" src="store.js"></script>
+                <script type="text/javascript" src="locale.js"></script>
+                <script type="text/javascript" src="cloud.js"></script>
+                <script type="text/javascript" src="sha512.js"></script>
+                <script type="text/javascript">
+
+                    var world, ideMorph;
+                    //var url = window.location.hostname
+                    var myhosturl = location.host;
+                        
+                    window.onload = function () {
+                        world = new WorldMorph(document.getElementById('world'));
+                        world.worldCanvas.focus();
+                    
+                        // If you want developer mode,
+                        world.isDevMode = false;
+                        
+                        ideMorph = new IDE_Morph();
+                        ideMorph.openIn(world);
+                        ideMorph.userLanguage = 'ko';
+                        ideMorph.setLanguage('ko');
+
+                        /*
+                         * Raspberrypi GPIO Librery Auto Load
+                         */
+                        ideMorph.droppedText(ideMorph.getURL('http://'+myhosturl+'/libraries/RPiGPIO.xml'), 'RPiGPIO');
+                        ideMorph.droppedText(ideMorph.getURL('http://'+myhosturl+'/libraries/NailDuino.xml'), 'NailDuino');
+
+                        loadCostume('car_om.gif');
+
+                        setInterval(loop, 1);
+
+                    };
+                        
+                    function loop() {
+                        world.doOneCycle();
+                    }
+                    
+                    function loadCostume(name) {
+                          var url = 'Costumes/'+name,
+                              img = new Image();
+                          img.onload = function () {
+                              var canvas = newCanvas(new Point(img.width, img.height));
+                              canvas.getContext('2d').drawImage(img, 0, 0);
+                              ideMorph.droppedImage(canvas, name);
+                          };
+                          img.src = url;
+                        }
+                </script>
+        </head>
+        <body style="margin: 0;">
+                <canvas id="world" tabindex="1" style="position: absolute;" />
+        </body>
+</html>

@@ -1,0 +1,626 @@
+<blocks>
+<block-definition s="s2a_fm %&apos;Enable_Disable&apos; Digital Pin %&apos;PIN&apos; for %&apos;MODE&apos;" type="command" category="sensing">
+<header>
+</header>
+<code>
+</code>
+<inputs>
+<input type="%s" readonly="true">Enable
+<options>Enable
+Disable
+</options>
+</input>
+<input type="%n">5
+</input>
+<input type="%txt" readonly="true">Input
+<options>Input
+Output
+PWM
+Servo
+Tone
+SONAR
+</options>
+</input>
+</inputs>
+<script>
+<block s="doIfElse">
+<block s="reportAnd">
+<block s="reportAnd">
+<block s="reportGreaterThan">
+<block var="PIN"/>
+<l>-1
+</l>
+</block>
+<block s="reportLessThan">
+<block var="PIN"/>
+<l>100
+</l>
+</block>
+</block>
+<block s="reportAnd">
+<block s="reportNot">
+<block s="reportEquals">
+<block var="Enable_Disable"/>
+<l>
+</l>
+</block>
+</block>
+<block s="reportNot">
+<block s="reportEquals">
+<block var="MODE"/>
+<l>
+</l>
+</block>
+</block>
+</block>
+</block>
+<script>
+<block s="doRun">
+<block s="reportURL">
+<block s="reportJoinWords">
+<list>
+<l>localhost:50209/
+</l>
+<l>digital_pin_mode/
+</l>
+<block var="Enable_Disable"/>
+<l>/
+</l>
+<block var="PIN"/>
+<l>/
+</l>
+<block var="MODE"/>
+</list>
+</block>
+</block>
+<list>
+</list>
+</block>
+</script>
+<script>
+<custom-block s="throw %s">
+<l>catchtag
+</l>
+</custom-block>
+</script>
+</block>
+</script>
+</block-definition>
+
+<block-definition s="s2a_fm %&apos;Enable_Disable&apos; Analog Pin (A) %&apos;PIN&apos; for Input" type="command" category="sensing">
+<header>
+</header>
+<code>
+</code>
+<inputs>
+<input type="%txt" readonly="true">Enable
+<options>Enable
+Disable
+</options>
+</input>
+<input type="%n">5
+</input>
+</inputs>
+<script>
+<block s="doIfElse">
+<block s="reportAnd">
+<block s="reportAnd">
+<block s="reportGreaterThan">
+<block var="PIN"/>
+<l>-1
+</l>
+</block>
+<block s="reportLessThan">
+<block var="PIN"/>
+<l>100
+</l>
+</block>
+</block>
+<block s="reportNot">
+<block s="reportEquals">
+<block var="Enable_Disable"/>
+<l>
+</l>
+</block>
+</block>
+</block>
+<script>
+<block s="doRun">
+<block s="reportURL">
+<block s="reportJoinWords">
+<list>
+<l>localhost:50209/
+</l>
+<l>analog_pin_mode/
+</l>
+<block var="Enable_Disable"/>
+<l>/
+</l>
+<block var="PIN"/>
+</list>
+</block>
+</block>
+<list>
+</list>
+</block>
+</script>
+<script>
+<custom-block s="throw %s">
+<l>catchtag
+</l>
+</custom-block>
+</script>
+</block>
+</script>
+</block-definition>
+
+<block-definition s="s2a_fm Read Digital Pin %&apos;PIN&apos;" type="reporter" category="sensing">
+<header>
+</header>
+<code>
+</code>
+<inputs>
+<input type="%n">5
+</input>
+</inputs>
+<script>
+<block s="doIfElse">
+<block s="reportAnd">
+<block s="reportGreaterThan">
+<block var="PIN"/>
+<l>-1
+</l>
+</block>
+<block s="reportLessThan">
+<block var="PIN"/>
+<l>100
+</l>
+</block>
+</block>
+<script>
+<block s="doReport">
+<block s="reportURL">
+<block s="reportJoinWords">
+<list>
+<l>localhost:50209/digital_read/
+</l>
+<block var="PIN"/>
+</list>
+</block>
+</block>
+</block>
+</script>
+<script>
+<custom-block s="throw %s">
+<l>catchtag
+</l>
+</custom-block>
+</script>
+</block>
+</script>
+</block-definition>
+
+<block-definition s="s2a_fm Read Analog Pin (A) %&apos;PIN&apos;" type="reporter" category="sensing">
+<header>
+</header>
+<code>
+</code>
+<inputs>
+<input type="%n">5
+</input>
+</inputs>
+<script>
+<block s="doIfElse">
+<block s="reportAnd">
+<block s="reportGreaterThan">
+<block var="PIN"/>
+<l>-1
+</l>
+</block>
+<block s="reportLessThan">
+<block var="PIN"/>
+<l>100
+</l>
+</block>
+</block>
+<script>
+<block s="doReport">
+<block s="reportURL">
+<block s="reportJoinWords">
+<list>
+<l>localhost:50209/analog_read/
+</l>
+<block var="PIN"/>
+</list>
+</block>
+</block>
+</block>
+</script>
+<script>
+<custom-block s="throw %s">
+<l>catchtag
+</l>
+</custom-block>
+</script>
+</block>
+</script>
+</block-definition>
+
+<block-definition s="s2a_fm DigitalWrite: Set Pin %&apos;PIN&apos; to %&apos;ON_OFF&apos;" type="command" category="sensing">
+<header>
+</header>
+<code>
+</code>
+<inputs>
+<input type="%n">5
+</input>
+<input type="%n" readonly="true">0
+<options>0
+1
+</options>
+</input>
+</inputs>
+<script>
+<block s="doIfElse">
+<block s="reportAnd">
+<block s="reportAnd">
+<block s="reportGreaterThan">
+<block var="PIN"/>
+<l>-1
+</l>
+</block>
+<block s="reportLessThan">
+<block var="PIN"/>
+<l>100
+</l>
+</block>
+</block>
+<block s="reportOr">
+<block s="reportEquals">
+<block var="ON_OFF"/>
+<l>0
+</l>
+</block>
+<block s="reportEquals">
+<block var="ON_OFF"/>
+<l>1
+</l>
+</block>
+</block>
+</block>
+<script>
+<block s="doRun">
+<block s="reportURL">
+<block s="reportJoinWords">
+<list>
+<l>localhost:50209/digital_write/
+</l>
+<block var="PIN"/>
+<l>/
+</l>
+<block var="ON_OFF"/>
+</list>
+</block>
+</block>
+<list>
+</list>
+</block>
+</script>
+<script>
+<custom-block s="throw %s">
+<l>catchtag
+</l>
+</custom-block>
+</script>
+</block>
+</script>
+</block-definition>
+
+<block-definition s="s2a_fm AnalogWrite (PWM): Set Pin %&apos;PIN&apos; to %&apos;PWM_VAL&apos;" type="command" category="sensing">
+<header>
+</header>
+<code>
+</code>
+<inputs>
+<input type="%n">5
+</input>
+<input type="%n">128
+</input>
+</inputs>
+<script>
+<block s="doIfElse">
+<block s="reportAnd">
+<block s="reportAnd">
+<block s="reportGreaterThan">
+<block var="PIN"/>
+<l>-1
+</l>
+</block>
+<block s="reportLessThan">
+<block var="PIN"/>
+<l>100
+</l>
+</block>
+</block>
+<block s="reportAnd">
+<block s="reportGreaterThan">
+<block var="PWM_VAL"/>
+<l>-1
+</l>
+</block>
+<block s="reportLessThan">
+<block var="PWM_VAL"/>
+<l>256
+</l>
+</block>
+</block>
+</block>
+<script>
+<block s="doRun">
+<block s="reportURL">
+<block s="reportJoinWords">
+<list>
+<l>localhost:50209/analog_write/
+</l>
+<block var="PIN"/>
+<l>/
+</l>
+<block var="PWM_VAL"/>
+</list>
+</block>
+</block>
+<list>
+</list>
+</block>
+</script>
+<script>
+<custom-block s="throw %s">
+<l>catchtag
+</l>
+</custom-block>
+</script>
+</block>
+</script>
+</block-definition>
+
+<block-definition s="s2a_fm Play Tone On Pin: %&apos;PIN&apos; HZ: %&apos;FREQ&apos; MS: %&apos;DURATION&apos;" type="command" category="sound">
+<header>
+</header>
+<code>
+</code>
+<inputs>
+<input type="%n">5
+</input>
+<input type="%n">1000
+</input>
+<input type="%n">500
+</input>
+</inputs>
+<script>
+<block s="doIfElse">
+<block s="reportAnd">
+<block s="reportAnd">
+<block s="reportGreaterThan">
+<block var="PIN"/>
+<l>-1
+</l>
+</block>
+<block s="reportLessThan">
+<block var="PIN"/>
+<l>100
+</l>
+</block>
+</block>
+<block s="reportAnd">
+<block s="reportGreaterThan">
+<block var="FREQ"/>
+<l>-1
+</l>
+</block>
+<block s="reportGreaterThan">
+<block var="DURATION"/>
+<l>-1
+</l>
+</block>
+</block>
+</block>
+<script>
+<block s="doRun">
+<block s="reportURL">
+<block s="reportJoinWords">
+<list>
+<l>localhost:50209/play_tone/
+</l>
+<block var="PIN"/>
+<l>/
+</l>
+<block var="FREQ"/>
+<l>/
+</l>
+<block var="DURATION"/>
+</list>
+</block>
+</block>
+<list>
+</list>
+</block>
+</script>
+<script>
+<custom-block s="throw %s">
+<l>catchtag
+</l>
+</custom-block>
+</script>
+</block>
+</script>
+</block-definition>
+
+<block-definition s="s2a_fm Turn Tone Off for Pin %&apos;PIN&apos;" type="command" category="sound">
+<header>
+</header>
+<code>
+</code>
+<inputs>
+<input type="%n">5
+</input>
+</inputs>
+<script>
+<block s="doIfElse">
+<block s="reportAnd">
+<block s="reportGreaterThan">
+<block var="PIN"/>
+<l>-1
+</l>
+</block>
+<block s="reportLessThan">
+<block var="PIN"/>
+<l>100
+</l>
+</block>
+</block>
+<script>
+<block s="doRun">
+<block s="reportURL">
+<block s="reportJoinWords">
+<list>
+<l>localhost:50209/tone_off/
+</l>
+<block var="PIN"/>
+</list>
+</block>
+</block>
+<list>
+</list>
+</block>
+</script>
+<script>
+<custom-block s="throw %s">
+<l>catchtag
+</l>
+</custom-block>
+</script>
+</block>
+</script>
+</block-definition>
+
+<block-definition s="s2a_fm Move Servo on Pin %&apos;PIN&apos; Deg: %&apos;DEGREES&apos;" type="command" category="motion">
+<header>
+</header>
+<code>
+</code>
+<inputs>
+<input type="%n">5
+</input>
+<input type="%n">90
+</input>
+</inputs>
+<script>
+<block s="doIfElse">
+<block s="reportAnd">
+<block s="reportAnd">
+<block s="reportGreaterThan">
+<block var="PIN"/>
+<l>-1
+</l>
+</block>
+<block s="reportLessThan">
+<block var="PIN"/>
+<l>100
+</l>
+</block>
+</block>
+<block s="reportAnd">
+<block s="reportGreaterThan">
+<block var="DEGREES"/>
+<l>-1
+</l>
+</block>
+<block s="reportLessThan">
+<block var="DEGREES"/>
+<l>181
+</l>
+</block>
+</block>
+</block>
+<script>
+<block s="doRun">
+<block s="reportURL">
+<block s="reportJoinWords">
+<list>
+<l>localhost:50209/set_servo_position/
+</l>
+<block var="PIN"/>
+<l>/
+</l>
+<block var="DEGREES"/>
+</list>
+</block>
+</block>
+<list>
+</list>
+</block>
+</script>
+<script>
+<custom-block s="throw %s">
+<l>catchtag
+</l>
+</custom-block>
+</script>
+</block>
+</script>
+</block-definition>
+
+<block-definition s="s2a_fm Debugger %&apos;ON_OFF&apos;" type="command" category="sensing">
+<header>
+</header>
+<code>
+</code>
+<inputs>
+<input type="%s" readonly="true">Off
+<options>Off
+On
+</options>
+</input>
+</inputs>
+<script>
+<block s="doIfElse">
+<block s="reportOr">
+<block s="reportEquals">
+<block var="ON_OFF"/>
+<l>Off
+</l>
+</block>
+<block s="reportEquals">
+<block var="ON_OFF"/>
+<l>On
+</l>
+</block>
+</block>
+<script>
+<block s="doRun">
+<block s="reportURL">
+<block s="reportJoinWords">
+<list>
+<l>localhost:50209/debugger/
+</l>
+<block var="ON_OFF"/>
+</list>
+</block>
+</block>
+<list>
+</list>
+</block>
+</script>
+<script>
+<custom-block s="throw %s">
+<l>catchtag
+</l>
+</custom-block>
+</script>
+</block>
+</script>
+</block-definition>
+</blocks>
+<variables>
+</variables>
+</project>

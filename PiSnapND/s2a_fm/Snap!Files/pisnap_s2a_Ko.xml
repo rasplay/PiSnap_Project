@@ -1,0 +1,783 @@
+<blocks>
+<block-definition s="아두이노 %&apos;Enable_Disable&apos; : 디지털 %&apos;PIN&apos; 번핀 / %&apos;MODE&apos; 모드" type="command" category="sensing">
+<header>
+</header>
+<code>
+</code>
+<inputs>
+<input type="%txt" readonly="true">사용
+<options>사용
+미사용
+</options>
+</input>
+<input type="%n">5
+</input>
+<input type="%txt" readonly="true">입력
+<options>입력
+출력
+전류조절
+서보모터
+신호음
+음파탐지
+</options>
+</input>
+</inputs>
+<script>
+<block s="doIfElse">
+<block s="reportAnd">
+<block s="reportAnd">
+<block s="reportGreaterThan">
+<block var="PIN"/>
+<l>-1
+</l>
+</block>
+<block s="reportLessThan">
+<block var="PIN"/>
+<l>100
+</l>
+</block>
+</block>
+<block s="reportAnd">
+<block s="reportNot">
+<block s="reportEquals">
+<block var="Enable_Disable"/>
+<l>
+</l>
+</block>
+</block>
+<block s="reportNot">
+<block s="reportEquals">
+<block var="MODE"/>
+<l>
+</l>
+</block>
+</block>
+</block>
+</block>
+<script>
+<block s="doIfElse">
+<block s="reportEquals">
+<block var="Enable_Disable"/>
+<l>사용
+</l>
+</block>
+<script>
+<block s="doSetVar">
+<l>Enable_Disable
+</l>
+<l>Enable
+</l>
+</block>
+</script>
+<script>
+<block s="doSetVar">
+<l>Enable_Disable
+</l>
+<l>Disable
+</l>
+</block>
+</script>
+</block>
+<block s="doIfElse">
+<block s="reportEquals">
+<block var="MODE"/>
+<l>입력
+</l>
+</block>
+<script>
+<block s="doSetVar">
+<l>MODE
+</l>
+<l>Input
+</l>
+</block>
+</script>
+<script>
+<block s="doIfElse">
+<block s="reportEquals">
+<block var="MODE"/>
+<l>출력
+</l>
+</block>
+<script>
+<block s="doSetVar">
+<l>MODE
+</l>
+<l>Output
+</l>
+</block>
+</script>
+<script>
+<block s="doIfElse">
+<block s="reportEquals">
+<block var="MODE"/>
+<l>전류조절
+</l>
+</block>
+<script>
+<block s="doSetVar">
+<l>MODE
+</l>
+<l>PWM
+</l>
+</block>
+</script>
+<script>
+<block s="doIfElse">
+<block s="reportEquals">
+<block var="MODE"/>
+<l>서보모터
+</l>
+</block>
+<script>
+<block s="doSetVar">
+<l>MODE
+</l>
+<l>Servo
+</l>
+</block>
+</script>
+<script>
+<block s="doIfElse">
+<block s="reportEquals">
+<block var="MODE"/>
+<l>신호음
+</l>
+</block>
+<script>
+<block s="doSetVar">
+<l>MODE
+</l>
+<l>Tone
+</l>
+</block>
+</script>
+<script>
+<block s="doIf">
+<block s="reportEquals">
+<block var="MODE"/>
+<l>음파탐지
+</l>
+</block>
+<script>
+<block s="doSetVar">
+<l>MODE
+</l>
+<l>Sonar
+</l>
+</block>
+</script>
+</block>
+</script>
+</block>
+</script>
+</block>
+</script>
+</block>
+</script>
+</block>
+</script>
+</block>
+<block s="doRun">
+<block s="reportURL">
+<block s="reportJoinWords">
+<list>
+<l>localhost:50209/
+</l>
+<l>digital_pin_mode/
+</l>
+<block var="Enable_Disable"/>
+<l>/
+</l>
+<block var="PIN"/>
+<l>/
+</l>
+<block var="MODE"/>
+</list>
+</block>
+</block>
+<list>
+</list>
+</block>
+</script>
+<script>
+<custom-block s="throw %s">
+<l>catchtag
+</l>
+</custom-block>
+</script>
+</block>
+</script>
+</block-definition>
+<block-definition s="아두이노 %&apos;Enable_Disable&apos; : 아날로그 %&apos;PIN&apos; 번핀" type="command" category="sensing">
+<header>
+</header>
+<code>
+</code>
+<inputs>
+<input type="%txt" readonly="true">사용
+<options>사용
+미사용
+</options>
+</input>
+<input type="%n">5
+</input>
+</inputs>
+<script>
+<block s="doIfElse">
+<block s="reportAnd">
+<block s="reportAnd">
+<block s="reportGreaterThan">
+<block var="PIN"/>
+<l>-1
+</l>
+</block>
+<block s="reportLessThan">
+<block var="PIN"/>
+<l>100
+</l>
+</block>
+</block>
+<block s="reportNot">
+<block s="reportEquals">
+<block var="Enable_Disable"/>
+<l>
+</l>
+</block>
+</block>
+</block>
+<script>
+<block s="doIfElse">
+<block s="reportEquals">
+<block var="Enable_Disable"/>
+<l>사용
+</l>
+</block>
+<script>
+<block s="doSetVar">
+<l>Enable_Disable
+</l>
+<l>Enable
+</l>
+</block>
+</script>
+<script>
+<block s="doSetVar">
+<l>Enable_Disable
+</l>
+<l>Disable
+</l>
+</block>
+</script>
+</block>
+<block s="doRun">
+<block s="reportURL">
+<block s="reportJoinWords">
+<list>
+<l>localhost:50209/
+</l>
+<l>analog_pin_mode/
+</l>
+<block var="Enable_Disable"/>
+<l>/
+</l>
+<block var="PIN"/>
+</list>
+</block>
+</block>
+<list>
+</list>
+</block>
+</script>
+<script>
+<custom-block s="throw %s">
+<l>catchtag
+</l>
+</custom-block>
+</script>
+</block>
+</script>
+</block-definition>
+<block-definition s="아두이노 디지털 %&apos;PIN&apos; 번핀 값 읽어오기" type="reporter" category="sensing">
+<header>
+</header>
+<code>
+</code>
+<inputs>
+<input type="%n">5
+</input>
+</inputs>
+<script>
+<block s="doIfElse">
+<block s="reportAnd">
+<block s="reportGreaterThan">
+<block var="PIN"/>
+<l>-1
+</l>
+</block>
+<block s="reportLessThan">
+<block var="PIN"/>
+<l>100
+</l>
+</block>
+</block>
+<script>
+<block s="doReport">
+<block s="reportURL">
+<block s="reportJoinWords">
+<list>
+<l>localhost:50209/digital_read/
+</l>
+<block var="PIN"/>
+</list>
+</block>
+</block>
+</block>
+</script>
+<script>
+<custom-block s="throw %s">
+<l>catchtag
+</l>
+</custom-block>
+</script>
+</block>
+</script>
+</block-definition>
+<block-definition s="아두이노 아날로그 %&apos;PIN&apos; 번핀 값 읽어보기" type="reporter" category="sensing">
+<header>
+</header>
+<code>
+</code>
+<inputs>
+<input type="%n">5
+</input>
+</inputs>
+<script>
+<block s="doIfElse">
+<block s="reportAnd">
+<block s="reportGreaterThan">
+<block var="PIN"/>
+<l>-1
+</l>
+</block>
+<block s="reportLessThan">
+<block var="PIN"/>
+<l>100
+</l>
+</block>
+</block>
+<script>
+<block s="doReport">
+<block s="reportURL">
+<block s="reportJoinWords">
+<list>
+<l>localhost:50209/analog_read/
+</l>
+<block var="PIN"/>
+</list>
+</block>
+</block>
+</block>
+</script>
+<script>
+<custom-block s="throw %s">
+<l>catchtag
+</l>
+</custom-block>
+</script>
+</block>
+</script>
+</block-definition>
+<block-definition s="아두이노 디지털 %&apos;PIN&apos; 번핀에 %&apos;ON_OFF&apos; 보내기" type="command" category="sensing">
+<header>
+</header>
+<code>
+</code>
+<inputs>
+<input type="%n">5
+</input>
+<input type="%n" readonly="true">0
+<options>0
+1
+</options>
+</input>
+</inputs>
+<script>
+<block s="doIfElse">
+<block s="reportAnd">
+<block s="reportAnd">
+<block s="reportGreaterThan">
+<block var="PIN"/>
+<l>-1
+</l>
+</block>
+<block s="reportLessThan">
+<block var="PIN"/>
+<l>100
+</l>
+</block>
+</block>
+<block s="reportOr">
+<block s="reportEquals">
+<block var="ON_OFF"/>
+<l>0
+</l>
+</block>
+<block s="reportEquals">
+<block var="ON_OFF"/>
+<l>1
+</l>
+</block>
+</block>
+</block>
+<script>
+<block s="doRun">
+<block s="reportURL">
+<block s="reportJoinWords">
+<list>
+<l>localhost:50209/digital_write/
+</l>
+<block var="PIN"/>
+<l>/
+</l>
+<block var="ON_OFF"/>
+</list>
+</block>
+</block>
+<list>
+</list>
+</block>
+</script>
+<script>
+<custom-block s="throw %s">
+<l>catchtag
+</l>
+</custom-block>
+</script>
+</block>
+</script>
+</block-definition>
+<block-definition s="아두이노 디지털 (전류조절) %&apos;PIN&apos; 번핀에 %&apos;PWM_VAL&apos; 보내기" type="command" category="sensing">
+<header>
+</header>
+<code>
+</code>
+<inputs>
+<input type="%n">5
+</input>
+<input type="%n">128
+</input>
+</inputs>
+<script>
+<block s="doIfElse">
+<block s="reportAnd">
+<block s="reportAnd">
+<block s="reportGreaterThan">
+<block var="PIN"/>
+<l>-1
+</l>
+</block>
+<block s="reportLessThan">
+<block var="PIN"/>
+<l>100
+</l>
+</block>
+</block>
+<block s="reportAnd">
+<block s="reportGreaterThan">
+<block var="PWM_VAL"/>
+<l>-1
+</l>
+</block>
+<block s="reportLessThan">
+<block var="PWM_VAL"/>
+<l>256
+</l>
+</block>
+</block>
+</block>
+<script>
+<block s="doRun">
+<block s="reportURL">
+<block s="reportJoinWords">
+<list>
+<l>localhost:50209/analog_write/
+</l>
+<block var="PIN"/>
+<l>/
+</l>
+<block var="PWM_VAL"/>
+</list>
+</block>
+</block>
+<list>
+</list>
+</block>
+</script>
+<script>
+<custom-block s="throw %s">
+<l>catchtag
+</l>
+</custom-block>
+</script>
+</block>
+</script>
+</block-definition>
+<block-definition s="아두이노 디버거 %&apos;ON_OFF&apos;" type="command" category="sensing">
+<header>
+</header>
+<code>
+</code>
+<inputs>
+<input type="%s" readonly="true">끄기
+<options>끄기
+켜기
+</options>
+</input>
+</inputs>
+<script>
+<block s="doIfElse">
+<block s="reportOr">
+<block s="reportEquals">
+<block var="ON_OFF"/>
+<l>끄기
+</l>
+</block>
+<block s="reportEquals">
+<block var="ON_OFF"/>
+<l>켜기
+</l>
+</block>
+</block>
+<script>
+<block s="doIfElse">
+<block s="reportEquals">
+<block var="ON_OFF"/>
+<l>끄기
+</l>
+</block>
+<script>
+<block s="doSetVar">
+<l>ON_OFF
+</l>
+<l>Off
+</l>
+</block>
+</script>
+<script>
+<block s="doSetVar">
+<l>ON_OFF
+</l>
+<l>On
+</l>
+</block>
+</script>
+</block>
+<block s="doRun">
+<block s="reportURL">
+<block s="reportJoinWords">
+<list>
+<l>localhost:50209/debugger/
+</l>
+<block var="ON_OFF"/>
+</list>
+</block>
+</block>
+<list>
+</list>
+</block>
+</script>
+<script>
+<custom-block s="throw %s">
+<l>catchtag
+</l>
+</custom-block>
+</script>
+</block>
+</script>
+</block-definition>
+<block-definition s="아두이노 서보모터 %&apos;PIN&apos; 번핀을 %&apos;DEGREES&apos; ° 만큼 회전시키기" type="command" category="motion">
+<header>
+</header>
+<code>
+</code>
+<inputs>
+<input type="%n">5
+</input>
+<input type="%n">90
+</input>
+</inputs>
+<script>
+<block s="doIfElse">
+<block s="reportAnd">
+<block s="reportAnd">
+<block s="reportGreaterThan">
+<block var="PIN"/>
+<l>-1
+</l>
+</block>
+<block s="reportLessThan">
+<block var="PIN"/>
+<l>100
+</l>
+</block>
+</block>
+<block s="reportAnd">
+<block s="reportGreaterThan">
+<block var="DEGREES"/>
+<l>-1
+</l>
+</block>
+<block s="reportLessThan">
+<block var="DEGREES"/>
+<l>181
+</l>
+</block>
+</block>
+</block>
+<script>
+<block s="doRun">
+<block s="reportURL">
+<block s="reportJoinWords">
+<list>
+<l>localhost:50209/set_servo_position/
+</l>
+<block var="PIN"/>
+<l>/
+</l>
+<block var="DEGREES"/>
+</list>
+</block>
+</block>
+<list>
+</list>
+</block>
+</script>
+<script>
+<custom-block s="throw %s">
+<l>catchtag
+</l>
+</custom-block>
+</script>
+</block>
+</script>
+</block-definition>
+<block-definition s="아두이노 신호음 %&apos;PIN&apos; 번핀에서 %&apos;FREQ&apos; 주파수로 %&apos;DURATION&apos; 동안 재생하기" type="command" category="sound">
+<header>
+</header>
+<code>
+</code>
+<inputs>
+<input type="%n">5
+</input>
+<input type="%n">1000
+</input>
+<input type="%n">500
+</input>
+</inputs>
+<script>
+<block s="doIfElse">
+<block s="reportAnd">
+<block s="reportAnd">
+<block s="reportGreaterThan">
+<block var="PIN"/>
+<l>-1
+</l>
+</block>
+<block s="reportLessThan">
+<block var="PIN"/>
+<l>100
+</l>
+</block>
+</block>
+<block s="reportAnd">
+<block s="reportGreaterThan">
+<block var="FREQ"/>
+<l>-1
+</l>
+</block>
+<block s="reportGreaterThan">
+<block var="DURATION"/>
+<l>-1
+</l>
+</block>
+</block>
+</block>
+<script>
+<block s="doRun">
+<block s="reportURL">
+<block s="reportJoinWords">
+<list>
+<l>localhost:50209/play_tone/
+</l>
+<block var="PIN"/>
+<l>/
+</l>
+<block var="FREQ"/>
+<l>/
+</l>
+<block var="DURATION"/>
+</list>
+</block>
+</block>
+<list>
+</list>
+</block>
+</script>
+<script>
+<custom-block s="throw %s">
+<l>catchtag
+</l>
+</custom-block>
+</script>
+</block>
+</script>
+</block-definition>
+<block-definition s="아두이노 %&apos;PIN&apos; 번핀의 신호음 끄기" type="command" category="sound">
+<header>
+</header>
+<code>
+</code>
+<inputs>
+<input type="%n">5
+</input>
+</inputs>
+<script>
+<block s="doIfElse">
+<block s="reportAnd">
+<block s="reportGreaterThan">
+<block var="PIN"/>
+<l>-1
+</l>
+</block>
+<block s="reportLessThan">
+<block var="PIN"/>
+<l>100
+</l>
+</block>
+</block>
+<script>
+<block s="doRun">
+<block s="reportURL">
+<block s="reportJoinWords">
+<list>
+<l>localhost:50209/tone_off/
+</l>
+<block var="PIN"/>
+</list>
+</block>
+</block>
+<list>
+</list>
+</block>
+</script>
+<script>
+<custom-block s="throw %s">
+<l>catchtag
+</l>
+</custom-block>
+</script>
+</block>
+</script>
+</block-definition>
+</blocks>
