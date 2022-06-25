@@ -50,7 +50,7 @@ $ sh setup.sh
 * Double Click PiSnap Desktop Icon
  
 ### korean language post here : How to install on the Raspberry-Pi
-* http://www.rasplay.org/?p=23946
+* http://www.openmake.cc/?p=23946
 
 #### Pi Snap Block Sample 
 
